@@ -1,42 +1,43 @@
 # initiate variables-Easy////////////////////////////////////////////////////////////////////////////
-e1 = ['"First_Blank"',"len"]
-e2 = ['"Second_Blank2"',"print"]
-e3 = ['"Third_Blank3"',"return"]
-e4 = ['"Fouth_Blank"',"join"]
-easyKey = [e1,e2,e3,e4]#answer key that lets me switch between "blank" and "answer" in the questions string.
+easyAnswer1 = ['"First_Blank"',"len"]
+easyAnswer2 = ['"Second_Blank"',"print"]
+easyAnswer3 = ['"Third_Blank"',"return"]
+easyAnswer4 = ['"Fouth_Blank"',"join"]
+easyAnswerKey = [easyAnswer1,easyAnswer2,easyAnswer3,easyAnswer4]#answer key that lets me switch between "blank" and "answer" in the questions string.
 
-easyQuestions = "The "+e1[0]+"() function returns the number of items of an object. The "+e2[0]+"() function prints the given object to the standard output device. The "+e3[0]+" statement is used when a function is ready to return a value to its caller. The "+e4[0]+"() method returns a string concatenated with the elements of an iterable."
+easyQuestions = "The "+easyAnswer1[0]+"() function returns the number of items of an object. The "+easyAnswer2[0]+"() function prints the given object to the standard output device. The "+easyAnswer3[0]+" statement is used when a function is ready to return a value to its caller. The "+easyAnswer4[0]+"() method returns a string concatenated with the elements of an iterable."
 
-easy = [easyQuestions, easyKey]#package answer key and questions together.
+easy = [easyQuestions, easyAnswerKey]#package answer key and questions together.
 
 # initiate variables-Medium////////////////////////////////////////////////////////////////////////////
-m1 = ['"First_Blank"',"replace"]
-m2 = ['"Second_Blank2"',"append"]
-m3 = ['"Third_Blank3"',"pop"]
-m4 = ['"Fouth_Blank"',"sort"]
-mediumKey = [m1,m2,m3,m4]#answer key that lets me switch between "blank" and "answer" in the questions string.
+mediumAnswer1 = ['"First_Blank"',"replace"]
+mediumAnswer2 = ['"Second_Blank"',"append"]
+mediumAnswer3 = ['"Third_Blank"',"pop"]
+mediumAnswer4 = ['"Fouth_Blank"',"sort"]
+mediumAnswerKey = [mediumAnswer1,mediumAnswer2,mediumAnswer3,mediumAnswer4]#answer key that lets me switch between "blank" and "answer" in the questions string.
 
-mediumQuestions = "The method "+m1[0]+"() returns a copy of the string in which the occurrences of old have been replaced with new. The "+m2[0]+"() method adds a single item to the existing list. It doesn't return a new list rather it modifies the original list. The "+m3[0]+"() method removes and returns the element at the given index (passed as an argument) from the list. The "+m4[0]+"() method sorts the elements of a given list in a specific order - Ascending or Descending."
+mediumQuestions = "The method "+mediumAnswer1[0]+"() returns a copy of the string in which the occurrences of old have been replaced with new. The "+mediumAnswer2[0]+"() method adds a single item to the existing list. It doesn't return a new list rather it modifies the original list. The "+mediumAnswer3[0]+"() method removes and returns the element at the given index (passed as an argument) from the list. The "+mediumAnswer4[0]+"() method sorts the elements of a given list in a specific order - Ascending or Descending."
 
-medium = [mediumQuestions, mediumKey]#package answer key and questions together.
+medium = [mediumQuestions, mediumAnswerKey]#package answer key and questions together.
 
 # initiate variables-Hard////////////////////////////////////////////////////////////////////////////
-h1 = ['"First_Blank"',"open"]
-h2 = ['"Second_Blank2"',"bool"]
-h3 = ['"Third_Blank3"',"all"]
-h4 = ['"Fouth_Blank"',"ascii"]
-hardKey = [h1,h2,h3,h4]#answer key that lets me switch between "blank" and "answer" in the questions string.
+hardAnswer1 = ['"First_Blank"',"open"]
+hardAnswer2 = ['"Second_Blank"',"bool"]
+hardAnswer3 = ['"Third_Blank"',"all"]
+hardAnswer4 = ['"Fouth_Blank"',"ascii"]
+hardAnswerKey = [hardAnswer1,hardAnswer2,hardAnswer3,hardAnswer4]#answer key that lets me switch between "blank" and "answer" in the questions string.
 
-hardQuestions = "The "+h1[0]+"() function opens the file (if possible) and returns a corresponding file object. The "+h2[0]+"() method converts a value to Boolean (True or False) using the standard truth testing procedure. The "+h3[0]+"() method returns True when all elements in the given iterable are true. If not, it returns False. The "+h4[0]+"() method returns a string containing a printable representation of an object."
+hardQuestions = "The "+hardAnswer1[0]+"() function opens the file (if possible) and returns a corresponding file object. The "+hardAnswer2[0]+"() method converts a value to Boolean (True or False) using the standard truth testing procedure. The "+hardAnswer3[0]+"() method returns True when all elements in the given iterable are true. If not, it returns False. The "+hardAnswer4[0]+"() method returns a string containing a printable representation of an object."
 
-hard = [hardQuestions, hardKey]#package answer key and questions together.
+hard = [hardQuestions, hardAnswerKey]#package answer key and questions together.
 
 
-#function that promts user for difficulty and returns it./////////////////////////////////////////
+#Function that promts user for difficulty and returns it./////////////////////////////////////////
+#INPUT: Easy, medium, or hard.
+#OUTPUT: The selected difficulty.
 def selectDiff():
   userInput = raw_input("*** Please type easy, medium, hard to select difficulty.").lower()
   if userInput == 'easy':
-
     return easy
   elif userInput == 'medium':
     return medium
@@ -46,7 +47,9 @@ def selectDiff():
     print "That is not a valid difficulty. Please try again."
     return selectDiff()
 
-#function that promts user for number of tries and returns it./////////////////////////////////////////
+#Function that promts user for number of tries./////////////////////////////////////////
+#INPUT:Prompts user for number of tries they would like.
+#OUTPUT:The number of tries the user input
 def numOfTries():
 	tries = raw_input("*** How many tries would you like?")
 	if tries.isdigit():
@@ -55,41 +58,49 @@ def numOfTries():
 		print "You must enter a number (i.e. 0,1,2...)"
 		numOfTries()
 
+#function that checks if user is out of tries.
+#INPUT:Takes the number of tries remaining and the current list of questions.
+#OUTPUT:Resets game if out of tries or returns amount of tries remaining.
+def checkIfOutOfTries(numOfTriesLeft, questionsString):
+    if numOfTriesLeft == 0:
+      print "*** Oh no, You ran out of tries! The game will now reset."
+      currentQuestions = questionsString
+      runGame()
+    else:
+      print "*** That was not correct, only "+str(numOfTriesLeft)+" tries left!"
+
+
 #function that answers questions with user input(main function)/////////////////////////////////////////
-def askQuestions(answerKey, questions):#recives string of questions and answer key.
+#INPUT:Takes in the a list a string of questions and its matching answer keyself.
+#OUTPUT:Replaces blank spot if user input is correct.Restarts game on win or loss.
+def askQuestions(answerKey, questionsString):#recives string of questions and answer key.
   tries = numOfTries()#sets number of tries.
-  currentQuestions = questions
-  for q in answerKey:#for every answer in the key starting from the first,request an input and replace its position in the questions string if correct.
+  currentQuestions = questionsString
+  for blank in answerKey:#for every answer in the key starting from the first,request an input and replace its position in the questionsString string if correct.
     correct = False
     while correct == False:
-      answer = raw_input("*** Please fill in the "+ q[0] +" by typing in the correct answer.")
-      if answer == q[1]:
+      answer = raw_input("*** Please fill in the "+ blank[0] +" by typing in the correct answer.")
+      if answer == blank[1]:
         print "*** Great job!, that was right!"
-        currentQuestions = currentQuestions.replace(q[0],q[1])
+        currentQuestions = currentQuestions.replace(blank[0],blank[1])#Find and "switch" from blank to the correct answer in the question string.
         print currentQuestions
         correct = True
       else:
         tries -= 1
-        if tries == 0:
-          print "*** Oh no, You ran out of tries! The game will now reset."
-          currentQuestions = questions
-          runGame()
-        else:
-          print "*** That was not correct, only "+str(tries)+" tries left!"
+        checkIfOutOfTries(tries, questionsString)
   print "*** Amazing! You got them all right! The game will now reset!"
-  currentQuestions = questions
+  currentQuestions = questionsString
   runGame()
 
-#function that runs askQuestions based on difficulty input/////////////////////////////////////////
-def runDiff(difficulty):
-  print difficulty[0]
-  askQuestions(difficulty[1],difficulty[0])
 
-#requests deficulty and initiates game////////////////////////////////////////////////////////
+#Requests deficulty and initiates game////////////////////////////////////////////////////////
+#INPUT:Takes no input.
+#OUTPUT:Runs askQuestion on the selected difficulty.
 def runGame():
   selectedDiff = selectDiff()
-  runDiff(selectedDiff)
+  print selectedDiff[0]
+  askQuestions(selectedDiff[1],selectedDiff[0])
 
 
-#start the game for the first time/////////////////////////////////////////////////////////
+#Initiate the game for the first time./////////////////////////////////////////////////////////
 runGame()
